@@ -1,2 +1,2 @@
 # net2025
-CNET1 + CNET2
+školení CNET1 + CNET2 2025/06
