@@ -23,4 +23,6 @@ foreach (var city_people in result)
     Console.WriteLine();
 }
 
-
+// Seskup podle věkové kategorie (pod 30 a 30+)
+// kolik v každé skupině
+// vypiš lidi dle skupin
