@@ -9,7 +9,43 @@
 };
 
 // 1. Počet aut podle značky
+var carBrand = cars.GroupBy(x => x.Brand)
+      .Select(g => new
+      {
+          Brand = g.Key,
+          Count = g.Count(),
+      });
+
+foreach (var item in carBrand)
+{
+    Console.WriteLine($"Brand: {item.Brand}: {item.Count} ");
+}
 
 // 2. Dostupná auta seřazená podle ceny
 
+var carAvailability = cars
+    .Where(x => x.Available)
+    .OrderBy(x => x.PricePerDay);
+
+Console.WriteLine("\nDostupná auta podle ceny:");
+foreach (var car in carAvailability)
+{
+    Console.WriteLine($"{car.Brand} {car.Model} - {car.PricePerDay} Kč");
+}
+
+
 // 3. Průměrná cena podle značky
+
+var averagePrice = cars
+    .GroupBy(x => x.Brand)
+    .Select(g => new
+    {
+        Brand = g.Key,
+        Price = g.Average(x => x.PricePerDay)
+    });
+
+Console.WriteLine("\nPrůměrná cena podle značky:");
+foreach (var item in averagePrice)
+{
+    Console.WriteLine($"{item.Brand}: {item.Price} Kč");
+}
