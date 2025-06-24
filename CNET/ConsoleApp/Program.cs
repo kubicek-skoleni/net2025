@@ -8,3 +8,8 @@
     new { Brand = "BMW", Model = "X3", Year = 2020, PricePerDay = 2000, Available = false }
 };
 
+// 1. Počet aut podle značky
+
+// 2. Dostupná auta seřazená podle ceny
+
+// 3. Průměrná cena podle značky
