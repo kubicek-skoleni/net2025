@@ -1,4 +1,5 @@
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,13 @@ app.MapGet("/", () => "Hello from API");
 
 app.MapGet("/person/count",
             (PeopleDbConxtext db) => db.Persons.Count());
+
+app.MapGet("/person/{id}", (int id, PeopleDbConxtext db)
+    => db.Persons
+    .Include(x => x.Address)
+    .Include(x => x.Contracts)
+    .Where(person => person.Id == id).First()
+);
 
 app.Run();
 
