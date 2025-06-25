@@ -6,7 +6,7 @@ public class Person
     public string LastName { get; set; }
     public string Email { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public Address Address { get; set; }
+    public Address? Address { get; set; }
     public ICollection<Contract> Contracts { get; set; }
 }
 
