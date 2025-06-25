@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
+using Model;
 
 namespace ConsoleApp
 {
@@ -11,10 +12,33 @@ namespace ConsoleApp
     {
         public static void DbInitFromJson()
         {
-            var people = JsonDataset
-            .LoadData(@"C:\PROJECTS\skoleni2025\github\net2025\data2024.json");
+            List<Person> people;
+            string file = @"C:\PROJECTS\skoleni2025\github\net2025\_data2024.json";
+            
+            if(!File.Exists(file))
+            {
+                throw new FileNotFoundException("Nenašel jsem dataset.");
+            }
 
-            Console.WriteLine($"načteno: {people.Count}");
+            try
+            {
+                people = JsonDataset
+                .LoadData(file);
+
+                Console.WriteLine($"načteno: {people.Count}");
+
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"Nenašel jsem soubor na: {file}");
+                return;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Došlo k chybě: {ex.Message}");
+                return;
+            }
+            
 
             PeopleDbConxtext dbConxtext = new();
 
