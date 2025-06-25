@@ -1,5 +1,4 @@
-﻿
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using Model;
 
 Console.WriteLine("Starting..");
@@ -25,3 +24,8 @@ Person person = await client.GetFromJsonAsync<Person>($"/person/{id}");
 
 
 Console.WriteLine($"person id {id}: {person.FirstName} {person.LastName}");
+
+//1. upravte aplikaci, aby se ptala opakovaně v cyklu na id
+// zobrazí informaci o osobě
+// nebo informaci že se nepodařilo převést ID
+// končí když uživatel napíše "Q"
