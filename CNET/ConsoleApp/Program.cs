@@ -1,25 +1,25 @@
 ﻿using DataAccess;
+using Microsoft.EntityFrameworkCore;
 
-var people = JsonDataset
-    .LoadData(@"C:\PROJECTS\skoleni2025\github\net2025\data2024.json");
+// připojte se k db
 
-Console.WriteLine($"načteno: {people.Count}");
+// 1. města a kolik v každěm městě osob a vypište do konzole
 
-PeopleDbConxtext dbConxtext = new ();
+var db = new PeopleDbConxtext();
 
-var personCount = dbConxtext.Persons.Count();
 
-if(personCount ==  0)
+// řešení bez vazby
+//var cities = db.Addresses.GroupBy(x => x.City);
+
+// řešení s vazbou
+var cities = db.Persons
+    .Include(x => x.Address)
+    .Where(x => x.Address != null)
+    .GroupBy(x => x.Address.City);
+
+foreach (var city in cities)
 {
-    dbConxtext.Persons.AddRange(people);
-
-    var changed = dbConxtext.SaveChanges();
-
-    Console.WriteLine($"změnil v db: {changed} řádků");
-}
-else
-{
-    Console.WriteLine("Databáze již obsahueje data");
+    Console.WriteLine($"město: {city.Key}, počet lidí: {city.Count()}");
 }
 
 
