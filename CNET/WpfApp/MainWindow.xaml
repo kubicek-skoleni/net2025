@@ -13,6 +13,7 @@
             <Button x:Name="btnPersonDetail" Margin="5" Click="btnPersonDetail_Click" Content="Person by ID" HorizontalAlignment="Left"  Height="39" Width="111" FontSize="16" Background="#FFF7F09A"/>
             <TextBox x:Name="txtPersonID" Margin="5" VerticalContentAlignment="Center" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="0" Width="40" Height="39" FontSize="16"/>
             <Button x:Name="btnFiles" Margin="5" Content="Load Files.." HorizontalAlignment="Left"  Height="39" Width="105" FontSize="18" Background="#FFAFBBF0" Click="btnFiles_Click"/>
+            <Button x:Name="btnProcessFilesAll" Content="Global stats" Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue" Click="btnProcessFilesAll_Click" />
         </StackPanel> 
         <ScrollViewer Margin="0,100,0,0">
             <TextBlock x:Name="txbInfo" TextWrapping="Wrap" Text="...." FontSize="20" />
