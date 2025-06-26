@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,6 +13,12 @@ using System.Windows.Shapes;
 
 namespace WpfApp
 {
+    public class CityInfo
+    {
+        public string City { get; set; }
+        public int Count { get; set; }
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -21,9 +29,20 @@ namespace WpfApp
             InitializeComponent();
         }
 
-        private void btnTest_Click(object sender, RoutedEventArgs e)
+        private async void btnTest_Click(object sender, RoutedEventArgs e)
         {
-            txbInfo.Text = "Uživatel klikl na tlačítko";
+            var baseUrl = "https://localhost:7194";
+            HttpClient client = new();
+            client.BaseAddress = new Uri(baseUrl);
+
+            var top20 = await client.GetFromJsonAsync<List<CityInfo>>("/city/top20");
+
+            txbInfo.Text = "";
+
+            foreach (var cityInfo in top20) 
+            {
+                txbInfo.Text += $"{cityInfo.City}: {cityInfo.Count} {Environment.NewLine}";
+            }
         }
     }
 }

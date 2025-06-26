@@ -8,8 +8,10 @@
         Background="Beige"
         Title="Moje aplikace" Height="300" Width="600">
     <Grid>
-        <Button x:Name="btnTest" Content="Test" HorizontalAlignment="Left" Margin="50,49,0,0" VerticalAlignment="Top" Height="39" Width="86" FontSize="18" Background="#FFAFF0F0" Click="btnTest_Click"/>
-        <TextBlock x:Name="txbInfo" Margin="50,0,94,0" TextWrapping="Wrap" Text="...." VerticalAlignment="Center" Height="65" FontSize="20"/>
+        <Button x:Name="btnTest" Content="Test" HorizontalAlignment="Left" Margin="23,29,0,0" VerticalAlignment="Top" Height="39" Width="105" FontSize="18" Background="#FFAFF0F0" Click="btnTest_Click"/>
+        <ScrollViewer Margin="0,100,0,0">
+            <TextBlock x:Name="txbInfo" TextWrapping="Wrap" Text="...." FontSize="20" />
+        </ScrollViewer>
 
     </Grid>
 </Window>
