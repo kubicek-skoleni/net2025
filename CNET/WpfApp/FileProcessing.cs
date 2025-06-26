@@ -61,7 +61,7 @@ namespace WpfApp
             return top10.ToDictionary();
         }
 
-        public static Dictionary<string, int> GlobalStatWithProgress(IProgress<string> progress)
+        public static Dictionary<string, int> GlobalStatWithProgress(IProgress<string> progress, CancellationToken cancelToken)
         {
             var files = LoadFiles();
 
@@ -69,6 +69,12 @@ namespace WpfApp
 
             foreach (var file in files)
             {
+                if(cancelToken.IsCancellationRequested)
+                {
+                    progress.Report("Canceled");
+                    return stats;
+                }
+
                 progress.Report(file);
 
                 var words = File.ReadLines(file);

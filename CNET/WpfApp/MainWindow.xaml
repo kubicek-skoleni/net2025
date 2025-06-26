@@ -21,6 +21,7 @@
             <Button x:Name="btnAsyn1AllFiles" Content="All async" Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue" Click="btnAsyn1AllFiles_Click" />
             <Button x:Name="btnPerFileAsync" Content="Per file async" Click="btnPerFileAsync_Click" Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue"  />
             <Button x:Name="btnGlobalProgressAsync1" Content="Progres 1" Click="btnGlobalProgressAsync1_Click"  Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue"  />
+            <Button x:Name="btnCancelProgres1" Content="Cancel Progres 1" Click="btnCancelProgres1_Click"  Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue"  />
 
         </StackPanel>
         <ScrollViewer Margin="0,140,0,0">

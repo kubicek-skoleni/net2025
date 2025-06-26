@@ -26,6 +26,8 @@ namespace WpfApp
         private string baseUrl = "https://localhost:7194";
         private HttpClient client = new();
 
+        CancellationTokenSource cts = new CancellationTokenSource();
+
 
         public MainWindow()
         {
@@ -159,7 +161,7 @@ namespace WpfApp
 
             foreach (var file in files)
             {
-                Dictionary<string, int> stats = new ();
+                Dictionary<string, int> stats = new();
 
                 foreach (var word in System.IO.File.ReadLines(file))
                 {
@@ -236,8 +238,8 @@ namespace WpfApp
 
             foreach (var file in files)
             {
-                var result 
-                    = await Task.Run(() 
+                var result
+                    = await Task.Run(()
                       => FileProcessing.StatsSingleFile(file));
 
                 foreach (var word_kv in result)
@@ -260,24 +262,36 @@ namespace WpfApp
             stopwatch.Start();
             txbInfo.Text = "";
 
-            IProgress<string> progress 
-                = new Progress<string>( message =>
+            cts = new CancellationTokenSource();
+            CancellationToken cancelToken = cts.Token;
+
+            IProgress<string> progress
+                = new Progress<string>(message =>
                 {
                     txbInfo.Text = message;
                 });
 
-            var result = await Task.Run(() => FileProcessing.GlobalStatWithProgress(progress));
+            var result = await Task.Run(() => FileProcessing.GlobalStatWithProgress(progress, cancelToken));
 
-            txbInfo.Text = "";
-
-            foreach (var word_kv in result)
+            if(!cancelToken.IsCancellationRequested)
             {
-                txbInfo.Text += $"{word_kv.Key}: {word_kv.Value} {Environment.NewLine}";
+                txbInfo.Text = "";
+
+                foreach (var word_kv in result)
+                {
+                    txbInfo.Text += $"{word_kv.Key}: {word_kv.Value} {Environment.NewLine}";
+                }
             }
 
             stopwatch.Stop();
-            txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
+            txbInfo.Text += $"{Environment.NewLine}elapsed ms: {stopwatch.ElapsedMilliseconds}";
             Mouse.OverrideCursor = null;
+        }
+
+        
+        private void btnCancelProgres1_Click(object sender, RoutedEventArgs e)
+        {
+            cts.Cancel();
         }
 
         //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
