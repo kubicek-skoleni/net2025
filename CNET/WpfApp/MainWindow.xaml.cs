@@ -44,6 +44,7 @@ namespace WpfApp
             var top20 = await client.GetFromJsonAsync<List<CityInfo>>("/city/top20");
 
             txbInfo.Text = "";
+            
 
             foreach (var cityInfo in top20) 
             {
