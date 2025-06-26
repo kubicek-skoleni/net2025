@@ -1,9 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Model;
 
 
@@ -181,6 +184,11 @@ namespace WpfApp
 
         private async void btnAsyn1AllFiles_Click(object sender, RoutedEventArgs e)
         {
+            /*
+               10 nejcastejsich slov ve všech souborech globálně NEBLOKUJICIM
+                asynchronnim zpusobem
+            */
+
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -196,6 +204,25 @@ namespace WpfApp
             stopwatch.Stop();
             txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
             Mouse.OverrideCursor = null;
+        }
+
+        private void btnRandomColor_Click(object sender, RoutedEventArgs e)
+        {
+            Random random = new Random();
+
+            // Get the button that was clicked
+            Button button = sender as Button;
+
+            if (button != null)
+            {
+                // Generate random RGB values
+                byte r = (byte)random.Next(256);
+                byte g = (byte)random.Next(256);
+                byte b = (byte)random.Next(256);
+
+                // Create a new SolidColorBrush with the random color
+                button.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
+            }
         }
 
         //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
