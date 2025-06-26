@@ -253,6 +253,33 @@ namespace WpfApp
             Mouse.OverrideCursor = null;
         }
 
+        private async void btnGlobalProgressAsync1_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            txbInfo.Text = "";
+
+            IProgress<string> progress 
+                = new Progress<string>( message =>
+                {
+                    txbInfo.Text = message;
+                });
+
+            var result = await Task.Run(() => FileProcessing.GlobalStatWithProgress(progress));
+
+            txbInfo.Text = "";
+
+            foreach (var word_kv in result)
+            {
+                txbInfo.Text += $"{word_kv.Key}: {word_kv.Value} {Environment.NewLine}";
+            }
+
+            stopwatch.Stop();
+            txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+        }
+
         //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
         //var stopwatch = new Stopwatch();
         //stopwatch.Start();

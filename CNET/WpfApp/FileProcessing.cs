@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -57,6 +58,32 @@ namespace WpfApp
             }
 
             var top10 = stats.OrderByDescending(x => x.Value).Take(10);
+            return top10.ToDictionary();
+        }
+
+        public static Dictionary<string, int> GlobalStatWithProgress(IProgress<string> progress)
+        {
+            var files = LoadFiles();
+
+            Dictionary<string, int> stats = new();
+
+            foreach (var file in files)
+            {
+                progress.Report(file);
+
+                var words = File.ReadLines(file);
+
+                foreach (var word in words)
+                {
+                    if (stats.ContainsKey(word))
+                        stats[word]++;
+                    else
+                        stats.Add(word, 1);
+                }
+            }
+
+            var top10 = stats.OrderByDescending(x => x.Value).Take(10);
+
             return top10.ToDictionary();
         }
     }
