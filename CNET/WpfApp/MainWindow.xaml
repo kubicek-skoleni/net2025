@@ -15,8 +15,12 @@
             <Button x:Name="btnFiles" Margin="5" Content="Load Files.." Height="39" Width="105" FontSize="18" Background="#FFAFBBF0" Click="btnFiles_Click"/>
             <Button x:Name="btnProcessFilesAll" Content="Global stats" Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue" Click="btnProcessFilesAll_Click" />
             <Button x:Name="btnProcessPerFile" Content="Per file" Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue" Click="btnProcessPerFile_Click" />
-        </StackPanel> 
-        <ScrollViewer Margin="0,100,0,0">
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,70,0,0" Height="70" Background="#FFF3F7A7">
+            <Button x:Name="btnAsyn1AllFiles" Content="All async" Margin="5" FontSize="18" Height="39" Padding="5" Background="CornflowerBlue" Click="btnAsyn1AllFiles_Click" />
+
+        </StackPanel>
+        <ScrollViewer Margin="0,140,0,0">
             <TextBlock x:Name="txbInfo" TextWrapping="Wrap" Text="...." FontSize="20" />
         </ScrollViewer>
         

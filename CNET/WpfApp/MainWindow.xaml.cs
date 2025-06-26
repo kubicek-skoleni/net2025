@@ -179,6 +179,11 @@ namespace WpfApp
             Mouse.OverrideCursor = null;
         }
 
+        private void btnAsyn1AllFiles_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
         //var stopwatch = new Stopwatch();
         //stopwatch.Start();
