@@ -26,6 +26,10 @@ namespace WpfApp
         private string baseUrl = "https://localhost:7194";
         private HttpClient client = new();
 
+        /// <summary>
+        /// Cancelation token source - pristupny ze vsech metod
+        /// vytvari nam konkretni cancellation token
+        /// </summary>
         CancellationTokenSource cts = new CancellationTokenSource();
 
 
@@ -35,6 +39,30 @@ namespace WpfApp
 
             client.BaseAddress = new Uri(baseUrl);
         }
+
+        private void btnRandomColor_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+             * Nastavi nahodnou barvu tlacitka na testovani resopnsivnosti aplikace
+             * ze neni zamrzla kvuli blokujici operaci
+             */
+            Random random = new Random();
+
+            // Get the button that was clicked
+            Button button = sender as Button;
+
+            if (button != null)
+            {
+                // Generate random RGB values
+                byte r = (byte)random.Next(256);
+                byte g = (byte)random.Next(256);
+                byte b = (byte)random.Next(256);
+
+                // Create a new SolidColorBrush with the random color
+                button.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
+            }
+        }
+
 
         private List<string> LoadFiles()
         {
@@ -61,6 +89,9 @@ namespace WpfApp
 
         private async void btnPersonDetail_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * vola API s parametrem a zobrazi informace o osobe
+             */
             int id = 0;
             bool result = int.TryParse(txtPersonID.Text, out id);
 
@@ -81,6 +112,10 @@ namespace WpfApp
 
         private void btnFiles_Click(object sender, RoutedEventArgs e)
         {
+
+            /*
+             * kolik je v kazdem souboru slov - blokujici
+             */
             string dir = @"C:\PROJECTS\skoleni2025\github\net2025\bigfiles";
 
             var stopwatch = new Stopwatch();
@@ -108,6 +143,7 @@ namespace WpfApp
         {
             /*
                10 nejcastejsich slov celkem ve všech souborech - globálně
+            blokujici - sync
             */
 
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
@@ -150,6 +186,7 @@ namespace WpfApp
         {
             /*
                10 nejcastejsich slov v kazdem souboru => 10 x statistika
+               blokujici - sync
             */
 
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
@@ -208,27 +245,14 @@ namespace WpfApp
             Mouse.OverrideCursor = null;
         }
 
-        private void btnRandomColor_Click(object sender, RoutedEventArgs e)
-        {
-            Random random = new Random();
-
-            // Get the button that was clicked
-            Button button = sender as Button;
-
-            if (button != null)
-            {
-                // Generate random RGB values
-                byte r = (byte)random.Next(256);
-                byte g = (byte)random.Next(256);
-                byte b = (byte)random.Next(256);
-
-                // Create a new SolidColorBrush with the random color
-                button.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
-            }
-        }
-
+        
         private async void btnPerFileAsync_Click(object sender, RoutedEventArgs e)
         {
+
+            /*
+             * 10 nejcastejsich slov v kazdem souboru
+             * neblokujicim zpusobem - upldate gui po kazdem souboru
+             */
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -257,6 +281,12 @@ namespace WpfApp
 
         private async void btnGlobalProgressAsync1_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * statistiky per file
+             * neblokujicim zpusobem - async
+             * reportujeme progres - ktery soubor zrovna zpracovavame
+             * umuznuje zruseni - cancellation token
+             */
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -291,6 +321,9 @@ namespace WpfApp
         
         private void btnCancelProgres1_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * rusi vykonavani btnGlobalProgressAsync1_Click
+             */
             cts.Cancel();
         }
 
