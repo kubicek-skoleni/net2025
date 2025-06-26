@@ -225,6 +225,34 @@ namespace WpfApp
             }
         }
 
+        private async void btnPerFileAsync_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            txbInfo.Text = "";
+
+            var files = LoadFiles();
+
+            foreach (var file in files)
+            {
+                var result 
+                    = await Task.Run(() 
+                      => FileProcessing.StatsSingleFile(file));
+
+                foreach (var word_kv in result)
+                {
+                    txbInfo.Text += $"{word_kv.Key}: {word_kv.Value} {Environment.NewLine}";
+                }
+
+                txbInfo.Text += Environment.NewLine;
+            }
+
+            stopwatch.Stop();
+            txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+        }
+
         //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
         //var stopwatch = new Stopwatch();
         //stopwatch.Start();
