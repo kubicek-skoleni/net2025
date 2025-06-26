@@ -8,10 +8,12 @@
         Background="Beige"
         Title="Moje aplikace" Height="300" Width="600">
     <Grid>
-        <Button x:Name="btnTest" Content="Test" HorizontalAlignment="Left" Margin="23,29,0,0" VerticalAlignment="Top" Height="39" Width="105" FontSize="18" Background="#FFAFF0F0" Click="btnTest_Click"/>
+        <Button x:Name="btnTest" Content="Top20" HorizontalAlignment="Left" Margin="23,29,0,0" VerticalAlignment="Top" Height="39" Width="105" FontSize="18" Background="#FFAFF0F0" Click="btnTest_Click"/>
         <ScrollViewer Margin="0,100,0,0">
             <TextBlock x:Name="txbInfo" TextWrapping="Wrap" Text="...." FontSize="20" />
         </ScrollViewer>
+        <TextBox x:Name="txtPersonID" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="268,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="132" Height="39" FontSize="16"/>
+        <Button x:Name="btnPersonDetail" Click="btnPersonDetail_Click" Content="Person by ID" HorizontalAlignment="Left" Margin="143,29,0,0" VerticalAlignment="Top" Height="39" Width="111" FontSize="16" Background="#FFF7F09A"/>
 
     </Grid>
 </Window>
