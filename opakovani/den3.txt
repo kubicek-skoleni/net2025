@@ -1,0 +1,35 @@
+First() vs Take(1)
+	First - první element
+	Take(1) - kolekce o velikosti 1
+	
+FirstOrDefault() vs First()
+	FirstOrDefault(x => x.Age > 18) - když je kolekce prázdná, tak vrátí null (defaultní hodnotu)
+	First() - exception
+
+First() vs Single()
+		First() - první element
+		Single() - právě jeden element který vrátí, jinak exception
+	
+co můžete dělat s IEnumerable?
+	procházet - foreach
+	ICollection
+	IList
+	IDictionary 
+	
+ Co znamená ORM?
+	EF - Entity Framework Core
+
+Co s EF používáme na dotazy nad databází?
+	DbContext
+
+ Jak se v EF data do db ukládají?
+	context.SaveChanges()
+
+Co znamená "Code First"? vs "Database First"
+		definujeme entity v C# a db schéma je generované
+
+Co je Dependency Injection?
+	IoC - Inversion of Control - DI
+	
+Co je JsonSerializer
+		třída na převod json stringu do entit a naopak
