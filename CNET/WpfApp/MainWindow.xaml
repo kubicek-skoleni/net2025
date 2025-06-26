@@ -12,8 +12,9 @@
         <ScrollViewer Margin="0,100,0,0">
             <TextBlock x:Name="txbInfo" TextWrapping="Wrap" Text="...." FontSize="20" />
         </ScrollViewer>
-        <TextBox x:Name="txtPersonID" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="268,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="132" Height="39" FontSize="16"/>
+        <TextBox x:Name="txtPersonID" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="64" Height="39" FontSize="16"/>
         <Button x:Name="btnPersonDetail" Click="btnPersonDetail_Click" Content="Person by ID" HorizontalAlignment="Left" Margin="143,29,0,0" VerticalAlignment="Top" Height="39" Width="111" FontSize="16" Background="#FFF7F09A"/>
+        <Button x:Name="btnFiles" Content="Load Files.." HorizontalAlignment="Left" Margin="347,29,0,0" VerticalAlignment="Top" Height="39" Width="105" FontSize="18" Background="#FFAFBBF0" Click="btnFiles_Click"/>
 
     </Grid>
 </Window>

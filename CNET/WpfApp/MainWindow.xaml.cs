@@ -1,4 +1,6 @@
 ﻿using System.Buffers.Text;
+using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -67,6 +69,31 @@ namespace WpfApp
 
             txbInfo.Text =
                 $"{person.FirstName} {person.LastName} {person.Email}";
+        }
+
+        private void btnFiles_Click(object sender, RoutedEventArgs e)
+        {
+            string dir = @"C:\PROJECTS\skoleni2025\github\net2025\bigfiles";
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            List<string> files = Directory.EnumerateFiles(dir, "*.txt")
+                                          .ToList();
+
+            txbInfo.Text = "";
+
+            foreach (var file in files)
+            {
+                Task.Delay(500).Wait();
+                var lines = File.ReadLines(file).ToArray();
+                var count = lines.Count();
+
+                txbInfo.Text += $"{file} : {count} {Environment.NewLine} ";    
+            }
+
+            stopwatch.Stop();
+            txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
         }
     }
 }
