@@ -18,7 +18,7 @@ namespace WpfApp
 
             return files;
         }
-        public static Dictionary<string,int> StatsAllFiles(string path)
+        public static Dictionary<string,int> StatsAllFiles()
         {
             var files = LoadFiles();
 

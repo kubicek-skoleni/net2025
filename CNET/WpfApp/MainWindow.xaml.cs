@@ -179,9 +179,23 @@ namespace WpfApp
             Mouse.OverrideCursor = null;
         }
 
-        private void btnAsyn1AllFiles_Click(object sender, RoutedEventArgs e)
+        private async void btnAsyn1AllFiles_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            txbInfo.Text = "";
 
+            var result = await Task.Run(() => FileProcessing.StatsAllFiles());
+
+            foreach (var word_kv in result)
+            {
+                txbInfo.Text += $"{word_kv.Key}: {word_kv.Value} {Environment.NewLine}";
+            }
+
+            stopwatch.Stop();
+            txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
         }
 
         //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
