@@ -25,10 +25,18 @@ app.MapGet("/person/count",
             (PeopleDbConxtext db) => db.Persons.Count());
 
 app.MapGet("/person/{id}", (int id, PeopleDbConxtext db)
-    => db.Persons
+    =>
+{
+    var person = db.Persons
     .Include(x => x.Address)
     .Include(x => x.Contracts)
-    .Where(person => person.Id == id).First()
+    .Where(person => person.Id == id).FirstOrDefault();
+
+    if (person == null)
+        return Results.NotFound();
+    else
+        return Results.Ok(person);
+    }
 );
 
 app.Map("/contract/count", (PeopleDbConxtext db)
