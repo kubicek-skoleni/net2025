@@ -1,19 +1,11 @@
-﻿using System.Buffers.Text;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Model;
+
 
 namespace WpfApp
 {
@@ -149,13 +141,51 @@ namespace WpfApp
             Mouse.OverrideCursor = null;
         }
 
+        private void btnProcessPerFile_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+               10 nejcastejsich slov v kazdem souboru => 10 x statistika
+            */
 
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            txbInfo.Text = "";
+
+            var files = LoadFiles();
+
+            foreach (var file in files)
+            {
+                Dictionary<string, int> stats = new ();
+
+                foreach (var word in System.IO.File.ReadLines(file))
+                {
+                    if (stats.ContainsKey(word))
+                        stats[word]++;
+                    else
+                        stats.Add(word, 1);
+                }
+
+                txbInfo.Text += file + Environment.NewLine;
+                //txbResultsInfo.Text += Environment.NewLine;
+                txbInfo.Text += string.Join(Environment.NewLine, stats.OrderByDescending(x => x.Value).Take(10)
+                                            .Select(x => x.Key + ": " + x.Value));
+
+                txbInfo.Text += Environment.NewLine + Environment.NewLine;
+            }
+
+            stopwatch.Stop();
+            txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+        }
+
+        //Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
         //var stopwatch = new Stopwatch();
         //stopwatch.Start();
         //txbInfo.Text = "";
 
         //stopwatch.Stop();
         //txbInfo.Text += $"elapsed ms: {stopwatch.ElapsedMilliseconds}";
-
+        //Mouse.OverrideCursor = null;
     }
 }
