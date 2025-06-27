@@ -1,0 +1,28 @@
+Popiště klíčová slova async/await
+	asynchronní - něco běži na pozadí
+	očekáváme výsledek
+
+Jak spustíte normální metodu na pozadí
+	await Task.Run( () => NaseTrida.Metoda() );
+
+Co znamená když nějaká metoda frameworku/knihovny má Async v názvu
+	indikace že metoda je async
+
+Co je to Task
+	třída .net pro jednotku práce na pozadí
+
+Co je XAML a co je WPF
+	XAML - soubor / format - UI
+	WPF - framework 
+	
+Jak v XAML nastavíte text tlačítka?
+	property Content
+	v XAMLu, v c# kodu, v property okně
+
+Jaké layout elementy ve WPF znáte?
+	ScrollView
+	StackPanel
+	Grid
+
+Jak připojíte obsluhu události Click na tlačítko v XAML?
+	Click="metoda"
