@@ -1,0 +1,49 @@
+﻿@page "/person/detail/{id:int}"
+
+@inject PeopleDbConxtext db
+
+<h3>Osoba</h3>
+
+@if(person == null)
+{
+	<div>POZOR OSOBA NENALEZENA DLE ID @id</div>
+}
+else
+{
+	<div>
+		<p>@person.FirstName @person.LastName</p>
+		<p>@person.DateOfBirth.ToString("dd. MM. yyyy")</p>
+		<p>@person.Email</p>
+	</div>
+	<div>
+		<h5>Adresa</h5>
+		@if(person.Address != null)
+		{
+			<p>@person.Address.Street</p>
+			<p>@person.Address.City</p>
+		}
+		else
+		{
+			<p>N/A</p>
+		}
+	</div>
+	<div>
+		<p>Smluv: @person.Contracts.Count()</p>
+	</div>
+}
+
+@code {
+	Person? person = new();
+
+	[Parameter]
+	public int id { get; set; }
+
+	protected override void OnInitialized()
+	{
+		person = db.Persons
+			.Include(x => x.Address)
+			.Include(x => x.Contracts)
+			.Where(x => x.Id == id)
+			.FirstOrDefault();
+	}
+}

@@ -15,6 +15,6 @@ public class Person
     /// </summary>
     public DateTime DateOfBirth { get; set; }
     public Address? Address { get; set; }
-    public ICollection<Contract> Contracts { get; set; }
+    public ICollection<Contract> Contracts { get; set; } = new List<Contract>();
 }
 
