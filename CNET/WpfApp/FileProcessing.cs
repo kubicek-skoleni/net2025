@@ -61,6 +61,12 @@ namespace WpfApp
             return top10.ToDictionary();
         }
 
+        /// <summary>
+        /// spocita globalni statistiku
+        /// </summary>
+        /// <param name="progress">reportuje ktery soubor zpracovava</param>
+        /// <param name="cancelToken">token na zrušení</param>
+        /// <returns>vrací top 10 </returns>
         public static Dictionary<string, int> GlobalStatWithProgress(IProgress<string> progress, CancellationToken cancelToken)
         {
             var files = LoadFiles();
