@@ -10,6 +10,7 @@
             <th>Příjmení</th>
             <th>Datum narození</th>
             <th>Email</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,9 @@
                 <td>@person.DateOfBirth.ToString("dd. MM. yyyy")</td>
                 <td> 
                     <a href="/person/detail/@person.Id">@person.Email</a>
+                </td>
+                <td>
+                    <a href="/person/edit/@person.Id">edit</a>
                 </td>
             </tr>
         }
