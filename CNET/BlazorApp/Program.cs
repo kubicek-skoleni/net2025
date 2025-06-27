@@ -1,4 +1,5 @@
 using BlazorApp.Components;
+using BlazorApp.Services;
 using DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddDbContext<PeopleDbConxtext>();
+
+builder.Services.AddSingleton<SimpleLogger>();   
 
 var app = builder.Build();
 
