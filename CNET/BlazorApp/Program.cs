@@ -1,10 +1,13 @@
 using BlazorApp.Components;
+using DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddDbContext<PeopleDbConxtext>();
 
 var app = builder.Build();
 

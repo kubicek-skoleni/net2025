@@ -1,7 +1,19 @@
 ﻿@page "/"
+@using DataAccess
+@inject PeopleDbConxtext db
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Pojištovna index page</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>V databázi máme @personCount osob</h1>
 
 <p>Welcome to your new app.</p>
+
+
+@code{
+	private int personCount = 0;
+
+	protected override void OnInitialized()
+	{
+		personCount = db.Persons.Count();
+	}
+}
