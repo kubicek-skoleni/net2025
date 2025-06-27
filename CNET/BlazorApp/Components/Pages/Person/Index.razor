@@ -1,0 +1,36 @@
+﻿@page "/person"
+@inject PeopleDbConxtext db
+
+<h3>Seznam osob</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Datum narození</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in peopleToShow)
+        {
+            <tr>
+               <td>@person.FirstName</td>
+                <td>@person.LastName</td>
+                <td>@person.DateOfBirth</td>
+                <td>@person.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+	private List<Person> peopleToShow = new();
+
+	protected override void OnInitialized()
+	{
+		peopleToShow = db.Persons
+						.Take(20).ToList();
+	}
+}
