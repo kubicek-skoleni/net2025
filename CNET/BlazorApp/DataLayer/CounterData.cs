@@ -1,4 +1,5 @@
-﻿namespace BlazorApp.DataAccess
+﻿namespace BlazorApp.DataLayer
+
 {
     public class CounterData
     {
