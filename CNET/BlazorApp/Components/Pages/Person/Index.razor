@@ -19,7 +19,9 @@
                <td>@person.FirstName</td>
                 <td>@person.LastName</td>
                 <td>@person.DateOfBirth.ToString("dd. MM. yyyy")</td>
-                <td>@person.Email</td>
+                <td> 
+                    <a href="/person/detail/@person.Id">@person.Email</a>
+                </td>
             </tr>
         }
     </tbody>

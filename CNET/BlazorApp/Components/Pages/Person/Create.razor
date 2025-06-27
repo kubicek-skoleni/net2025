@@ -1,9 +1,10 @@
 ﻿@page "/person/create"
 @inject PeopleDbConxtext db
+@inject NavigationManager nav
 
 <h3>Nová osoba</h3>
 
-<EditForm Model="person" >
+<EditForm Model="person" OnSubmit="SaveForm">
     <div class="form-group">
         Add commentMore actions
         <label class="control-label col-md-2">Jméno</label>
@@ -41,7 +42,18 @@
 </EditForm>
 
 @code {
-	private Person person = new();
+    private Person person = new();
 
+    void SaveForm()
+    {
+        db.Persons.Add(person);
+        db.SaveChanges();
 
+        var savedPersonId = person.Id;
+        if(savedPersonId != 0)
+        {
+            nav.NavigateTo($"/person/detail/{savedPersonId}");
+        }
+        
+    }
 }
