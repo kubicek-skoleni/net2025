@@ -17,7 +17,7 @@
         @foreach (var person in peopleToShow)
         {
             <tr>
-               <td>@person.FirstName</td>
+                <td>@person.FirstName</td>
                 <td>@person.LastName</td>
                 <td>@person.DateOfBirth.ToString("dd. MM. yyyy")</td>
                 <td> 
@@ -31,12 +31,29 @@
     </tbody>
 </table>
 
-@code {
-	private List<Person> peopleToShow = new();
+<button class="btn btn-primary" @onclick="LoadNext">načti dalších 10</button>
 
-	protected override void OnInitialized()
-	{
-		peopleToShow = db.Persons
-						.Take(20).ToList();
-	}
+@code {
+    private List<Person> peopleToShow = new();
+
+    int skip = 0;
+
+    protected override void OnInitialized()
+    {
+        peopleToShow = db.Persons
+                        .Take(10).ToList();
+
+        skip = 10;
+    }
+
+    void LoadNext()
+    {
+        var peopleToAdd = db.Persons.Skip(skip)
+                  .Take(10)
+                  .ToList();
+
+        peopleToShow.AddRange(peopleToAdd);
+
+        skip += 10;
+    }
 }
